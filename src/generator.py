@@ -1,5 +1,9 @@
 import os
-from typing import Optional
+import json
+from openai import OpenAI
+from dotenv import load_dotenv
+# Remove the 'src.' or '.' prefix here
+from prompts import SYSTEM_PROMPT, get_generation_prompt, get_refinement_prompt
 
 import openai
 
