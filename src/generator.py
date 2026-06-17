@@ -1,6 +1,6 @@
 import os
 
-import openai
+from openai import OpenAI
 
 from prompts import (
     BASE_USER_TEMPLATE,
@@ -20,8 +20,8 @@ def _get_api_key() -> str:
 
 
 def _call_openai(prompt: str, temperature: float = 0.8) -> dict:
-    openai.api_key = _get_api_key()
-    completion = openai.ChatCompletion.create(
+    client = OpenAI(api_key=_get_api_key())
+    completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
