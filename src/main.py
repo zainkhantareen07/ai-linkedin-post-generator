@@ -1,9 +1,4 @@
-from dotenv import load_dotenv
-
-from .app import app
-
-
-load_dotenv()
+from src.app import run_app
 
 if __name__ == "__main__":
-    app()
+    run_app()
