@@ -1,10 +1,8 @@
-import os
-import sys
+from dotenv import load_dotenv
 
-# Forces Python to look inside the current directory for modules
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from app import app
 
-from app import run_app
+load_dotenv()
 
 if __name__ == "__main__":
-    run_app()
+    app()

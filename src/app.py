@@ -1,9 +1,8 @@
 import streamlit as st
-import json
-# Remove the dot before generator and prompts
-from generator import generate_post, refine_post, client
-from utils import compile_post_to_text
+
+from generator import add_emojis, generate_post, make_more_viral, shorten_post
 from prompts import SYSTEM_PROMPT
+from utils import compile_post_to_text, format_hashtags, publish_to_linkedin
 
 
 def display_json_data(data: dict) -> None:

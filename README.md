@@ -5,7 +5,7 @@ A Streamlit app that generates viral LinkedIn posts using OpenAI.
 ## Setup
 
 1. Copy `.env.example` to `.env`.
-2. Add your `OPENAI_API_KEY`.
+2. Add your `OPENAI_API_KEY` and optionally `LINKEDIN_ACCESS_TOKEN`.
 3. Install dependencies:
 
 ```bash
@@ -17,6 +17,8 @@ pip install -r requirements.txt
 ```bash
 streamlit run src/main.py
 ```
+
+> Tip: keep your `.env` file private and do not commit it to GitHub.
 
 ## Features
 

@@ -1,20 +1,15 @@
 import os
-import json
-from openai import OpenAI
-from dotenv import load_dotenv
-# Remove the 'src.' or '.' prefix here
-from prompts import SYSTEM_PROMPT, get_generation_prompt, get_refinement_prompt
 
 import openai
 
-from .prompts import (
+from prompts import (
     BASE_USER_TEMPLATE,
     EMOJI_PROMPT,
     SHORTEN_PROMPT,
     SYSTEM_PROMPT,
     VIRAL_PROMPT,
 )
-from .utils import parse_openai_response
+from utils import parse_openai_response
 
 
 def _get_api_key() -> str:
