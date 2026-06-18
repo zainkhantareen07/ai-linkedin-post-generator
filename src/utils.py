@@ -1,6 +1,97 @@
 import json
-
+from datetime import datetime
 import requests
+
+
+def format_post_for_export(post: dict, topic: str, tone: str) -> str:
+    """Format post data as a clean .txt file content."""
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    hashtags = " ".join(post.get("hashtags", []))
+
+    lines = [
+        "=" * 60,
+        "  AI LinkedIn Post Generator — Export",
+        f"  Generated: {now}",
+        f"  Topic: {topic}",
+        f"  Tone: {tone.capitalize()}",
+        "=" * 60,
+        "",
+        "── HOOK ──────────────────────────────────────────────────",
+        post.get("hook", ""),
+        "",
+        "── FULL POST ─────────────────────────────────────────────",
+        post.get("post", ""),
+        "",
+        "── CALL TO ACTION ───────────────────────────────────────-",
+        post.get("cta", ""),
+        "",
+        "── HASHTAGS ─────────────────────────────────────────────-",
+        hashtags,
+        "",
+        "── ALTERNATE VERSIONS ───────────────────────────────────-",
+        "",
+        "[ FORMAL ]",
+        post.get("alternate_versions", {}).get("formal", ""),
+        "",
+        "[ CASUAL ]",
+        post.get("alternate_versions", {}).get("casual", ""),
+        "",
+        "[ VIRAL ]",
+        post.get("alternate_versions", {}).get("viral", ""),
+        "",
+        "=" * 60,
+        "  Generated with AI LinkedIn Post Generator",
+        "=" * 60,
+    ]
+
+    return "\n".join(lines)
+
+
+def format_full_linkedin_post(post: dict) -> str:
+    """Combine hook + post + cta + hashtags into a ready-to-copy LinkedIn post."""
+    parts = []
+
+    hook = post.get("hook", "").strip()
+    body = post.get("post", "").strip()
+    cta = post.get("cta", "").strip()
+    hashtags = " ".join(post.get("hashtags", []))
+
+    if hook:
+        parts.append(hook)
+    if body:
+        parts.append(body)
+    if cta:
+        parts.append(cta)
+    if hashtags:
+        parts.append(hashtags)
+
+    return "\n\n".join(parts)
+
+
+def get_raw_debug_info(post: dict, topic: str, tone: str, system_prompt: str) -> str:
+    """Return debug info for teach mode."""
+    return json.dumps({
+        "system_prompt_preview": system_prompt[:300] + "...",
+        "topic": topic,
+        "tone": tone,
+        "raw_output": post
+    }, indent=2)
+
+
+def count_words(text: str) -> int:
+    """Count words in a string."""
+    return len(text.split()) if text.strip() else 0
+
+
+def validate_inputs(topic: str) -> tuple[bool, str]:
+    """Validate user inputs before making API call."""
+    if not topic or not topic.strip():
+        return False, "Please enter a topic before generating."
+    if len(topic.strip()) < 5:
+        return False, "Topic is too short. Please be more descriptive."
+    if len(topic) > 500:
+        return False, "Topic is too long. Please keep it under 500 characters."
+    return True, ""
 
 
 def parse_openai_response(response_text: str) -> dict:
