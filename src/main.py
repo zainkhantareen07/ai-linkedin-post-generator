@@ -1,55 +1,13 @@
-import json
+import os
+from dotenv import load_dotenv
+from groq import Groq
 
+load_dotenv()
 
-def generate_post(client, topic, tone):
-    prompt = f"""
-Create a high-quality LinkedIn post.
+def get_client():
+    api_key = os.getenv("GROQ_API_KEY")
 
-Topic:
-{topic}
+    if not api_key:
+        raise EnvironmentError("Missing GROQ_API_KEY in environment")
 
-Tone:
-{tone}
-
-Return ONLY valid JSON.
-
-Format:
-
-{{
-    "hook":"...",
-    "post":"...",
-    "cta":"...",
-    "hashtags":[
-        "#AI",
-        "#Technology",
-        "#Innovation"
-    ]
-}}
-
-Do not include markdown.
-Do not include explanations.
-Return JSON only.
-"""
-
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        temperature=0.7,
-    )
-
-    content = response.choices[0].message.content
-
-    try:
-        return json.loads(content)
-    except Exception:
-        return {
-            "hook": "",
-            "post": content,
-            "cta": "",
-            "hashtags": []
-        }
+    return Groq(api_key=api_key)
