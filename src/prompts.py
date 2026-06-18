@@ -98,90 +98,6 @@ Return ONLY valid JSON in this exact structure:
   }
 }
 """
-=======
-
-Rules:
-- hook: Max 1-2 punchy lines. Must stop the scroll. No fluff.
-- post: Structured in short paragraphs (2-3 sentences each). Human, storytelling-based.
-- cta: Clear, specific, non-generic call to action. NOT "Let me know your thoughts."
-- hashtags: 3-6 relevant hashtags (without the # symbol in the array values, add # in values)
-- alternate_versions: Three full rewrites of the post body only (not hook/cta):
-    - formal: polished, executive-level, authoritative
-    - casual: conversational, friendly, like texting a colleague
-    - viral: high-energy, bold, controversial or surprising angle
-- NEVER use: "synergy", "leverage", "game-changer", "thrilled to announce", "excited to share", "humbled"
-- DO use: specific details, numbers, real stories, tension, vulnerability where appropriate
-"""
-
-MAKE_VIRAL_PROMPT = """Take this LinkedIn post and make it significantly more viral.
-
-Techniques to apply:
-- Add a bold, controversial or counterintuitive opening claim
-- Use pattern interrupts (unexpected line breaks, one-word sentences)
-- Add specificity (real numbers, timeframes, names if appropriate)
-- Create tension or stakes early
-- End with a question or statement that demands engagement
-
-Return ONLY valid JSON in this exact structure:
-{
-  "hook": "",
-  "post": "",
-  "cta": "",
-  "hashtags": [],
-  "alternate_versions": {
-    "formal": "",
-    "casual": "",
-    "viral": ""
-  }
-}
-"""
-
-SHORTEN_PROMPT = """Shorten this LinkedIn post to make it more punchy and scannable.
-
-Rules:
-- Keep the core message and hook
-- Cut filler words, redundant sentences, any fluff
-- Target 30-40% shorter
-- Each paragraph max 2 sentences
-- Keep the emotional core intact
-
-Return ONLY valid JSON in this exact structure:
-{
-  "hook": "",
-  "post": "",
-  "cta": "",
-  "hashtags": [],
-  "alternate_versions": {
-    "formal": "",
-    "casual": "",
-    "viral": ""
-  }
-}
-"""
-
-ADD_EMOJIS_PROMPT = """Add strategic emojis to this LinkedIn post to increase engagement and scannability.
-
-Rules:
-- Use emojis at the start of key paragraphs as visual bullets
-- Add 1-2 emojis to the hook for impact
-- Add relevant emojis to hashtags
-- Don't overdo it — max 8-10 emojis total
-- Choose emojis that match the tone and topic
-- Keep the text itself unchanged except for emoji additions
-
-Return ONLY valid JSON in this exact structure:
-{
-  "hook": "",
-  "post": "",
-  "cta": "",
-  "hashtags": [],
-  "alternate_versions": {
-    "formal": "",
-    "casual": "",
-    "viral": ""
-  }
-}
-"""
 
 
 def build_generation_prompt(topic: str, tone: str) -> str:
@@ -222,4 +138,3 @@ Here is the current post to transform:
 {post_json}
 
 Return ONLY valid JSON. No markdown, no backticks, no explanation."""
->>>>>>> b7af538 (Switch to Grok (X.AI) via openai client; add XAI_API_KEY placeholder)
